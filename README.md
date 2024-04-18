@@ -12,10 +12,31 @@ export PATH
 pip install -r requirements.txt
 ```
 
-Prepare the instrumentation by following the steps in the GDI wizard for Python. When setting the environmental variables, be sure to [enable profiling](https://docs.splunk.com/observability/en/gdi/get-data-in/application/python/instrumentation/instrument-python-application.html#activate-alwayson-profiling) with,
+Prepare the instrumentation by following the steps in the GDI wizard for Python. When setting the environmental variables, be sure to [enable profiling](https://docs.splunk.com/observability/en/gdi/get-data-in/application/python/instrumentation/instrument-python-application.html#activate-alwayson-profiling). For the `client.py`
 
 ```
+pip install "splunk-opentelemetry[all]"
+splunk-py-trace-bootstrap
 export SPLUNK_PROFILER_ENABLED=true
+export OTEL_SERVICE_NAME='client'
+export OTEL_EXPORTER_OTLP_ENDPOINT='http://localhost:4317'
+export OTEL_RESOURCE_ATTRIBUTES='deployment.environment=nova,service.version=1'
+splunk-py-trace python3 client.py
 ```
+
+For `profiling-example.py` ,
+
+```
+pip install "splunk-opentelemetry[all]"
+splunk-py-trace-bootstrap
+export SPLUNK_PROFILER_ENABLED=true
+export OTEL_SERVICE_NAME='server'
+export OTEL_EXPORTER_OTLP_ENDPOINT='http://localhost:4317'
+export OTEL_RESOURCE_ATTRIBUTES='deployment.environment=nova,service.version=1'
+splunk-py-trace python3 profiling-example.py
+```
+
+See [here](https://docs.splunk.com/observability/en/gdi/get-data-in/application/python/troubleshooting/common-python-troubleshooting.html#check-that-your-pip-install-directory-is-in-path)if you get `command not found` when running `splunk-py-trace-bootstrap`.
+
 
 Run each application with 
