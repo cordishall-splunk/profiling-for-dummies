@@ -36,7 +36,7 @@ export OTEL_RESOURCE_ATTRIBUTES='deployment.environment=nova,service.version=1'
 splunk-py-trace python3 profiling-example.py
 ```
 
-See [here](https://docs.splunk.com/observability/en/gdi/get-data-in/application/python/troubleshooting/common-python-troubleshooting.html#check-that-your-pip-install-directory-is-in-path)if you get `command not found` when running `splunk-py-trace-bootstrap`.
+See [here](https://docs.splunk.com/observability/en/gdi/get-data-in/application/python/troubleshooting/common-python-troubleshooting.html#check-that-your-pip-install-directory-is-in-path) if you get `command not found` when running `splunk-py-trace-bootstrap`.
 
 
 Run each application with 
