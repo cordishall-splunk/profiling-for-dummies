@@ -24,7 +24,7 @@ export OTEL_RESOURCE_ATTRIBUTES='deployment.environment=nova,service.version=1'
 splunk-py-trace python3 client.py
 ```
 
-For `profiling-example.py` ,
+For `app.py` ,
 
 ```
 pip install "splunk-opentelemetry[all]"
@@ -33,7 +33,8 @@ export SPLUNK_PROFILER_ENABLED=true
 export OTEL_SERVICE_NAME='server'
 export OTEL_EXPORTER_OTLP_ENDPOINT='http://localhost:4317'
 export OTEL_RESOURCE_ATTRIBUTES='deployment.environment=nova,service.version=1'
-splunk-py-trace python3 profiling-example.py
+export OTEL_PROPAGATORS=b3multi
+splunk-py-trace python3 -m flask run
 ```
 
 See [here](https://docs.splunk.com/observability/en/gdi/get-data-in/application/python/troubleshooting/common-python-troubleshooting.html#check-that-your-pip-install-directory-is-in-path) if you get `command not found` when running `splunk-py-trace-bootstrap`.
